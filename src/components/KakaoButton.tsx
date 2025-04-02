@@ -2,6 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
+type KakaoButtonProps = {
+  onPress: () => void;
+};
+
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 375;
 const isMediumScreen = width >= 375 && width < 768;
@@ -19,7 +23,7 @@ const kakaoIconXml = `
 </svg>
 `;
 
-const KakaoButton: React.FC = () => {
+const KakaoButton: React.FC<KakaoButtonProps> = ({ onPress }) => {
   // Calculate icon size based on screen size
   const getIconSize = () => {
     if (isSmallScreen) return 28;
@@ -29,17 +33,12 @@ const KakaoButton: React.FC = () => {
 
   const iconSize = getIconSize();
 
-  const handlePress = () => {
-    // Handle Kakao login logic here
-    console.log('Kakao login pressed');
-  };
-
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={handlePress}
-      activeOpacity={0.8}
-    >
+<TouchableOpacity
+  style={styles.button}
+  onPress={onPress}
+  activeOpacity={0.8}
+>
       <View style={styles.buttonContent}>
         <SvgXml xml={kakaoIconXml} width={iconSize} height={iconSize} />
         <Text style={styles.buttonText}>카카오 로그인</Text>
