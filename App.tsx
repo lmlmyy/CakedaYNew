@@ -5,12 +5,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import LoginScreen from './src/screens/LoginScreen';
+import ProfileSetupScreen from './src/screens/ProfileSetupScreen';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <LoginScreen />
+      <ProfileSetupScreen />
     </SafeAreaView>
   );
 }
