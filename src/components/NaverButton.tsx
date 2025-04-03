@@ -1,17 +1,17 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import KakaoIcon from "../../assets/icons/kakao-icon.svg"; // ✅ SVG 아이콘 import
+import NaverIcon from "../../assets/icons/naver-icon.svg";
 
-const KakaoButton: React.FC = () => {
+const NaverButton: React.FC = () => {
   const handlePress = () => {
-    console.log("Kakao login pressed");
+    console.log("naver login pressed");
   };
 
   return (
     <TouchableOpacity style={styles.button} onPress={handlePress}>
       <View style={styles.buttonContent}>
-        <KakaoIcon width={36} height={36} /> {/* ✅ 아이콘 컴포넌트처럼 사용 */}
-        <Text style={styles.buttonText}>카카오 로그인</Text>
+        <NaverIcon width={32} height={32} /> 
+        <Text style={styles.buttonText}>네이버 로그인</Text>
       </View>
     </TouchableOpacity>
   );
@@ -19,10 +19,12 @@ const KakaoButton: React.FC = () => {
 
 const styles = StyleSheet.create({
   button: {
+    justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    padding: 20,
-    backgroundColor: "#FEE500",
+    paddingVertical: 21,
+    paddingHorizontal: 12,
+    backgroundColor: "#03C75A",
     borderRadius: 12,
   },
   buttonContent: {
@@ -35,8 +37,9 @@ const styles = StyleSheet.create({
     fontSize: 29,
     fontWeight: "400",
     fontFamily: "Inder",
-    color: "#000",
+    color: "#FFFFFF",
+    lineHeight: 34,
   },
 });
 
-export default KakaoButton;
+export default NaverButton;

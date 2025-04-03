@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Logo from '../components/Logo';
 import KakaoButton from '../components/KakaoButton';
-import GoogleButton from '../components/GoogleButton';
+import NaverButton from '../components/NaverButton';
 
 const { width } = Dimensions.get("window");
 const isSmallScreen = width < 375;
@@ -15,7 +15,7 @@ const LoginScreen: React.FC = () => {
         <Logo />
         <View style={styles.buttonContainer}>
           <KakaoButton />
-          <GoogleButton />
+          <NaverButton />
         </View>
       </View>
     </View>
