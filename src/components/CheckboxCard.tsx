@@ -9,16 +9,17 @@ interface CheckboxCardProps {
 const CheckboxCard: React.FC<CheckboxCardProps> = ({ selected, onSelect }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onSelect}>
-      <View style={[styles.checkbox, selected && styles.checkboxSelected]}>
-        {selected && <View style={styles.checkboxInner} />}
+      <View style={[styles.checkbox, !!selected && styles.checkboxSelected]}>
+        {!!selected && <View style={styles.checkboxInner} />}
       </View>
     </TouchableOpacity>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    width: 164,
+    width: "49%",
     height: 164,
     borderRadius: 6,
     borderWidth: 1,

@@ -24,7 +24,6 @@ const ProfileSetupScreen: React.FC = () => {
   };
 
   const handleLogin = () => {
-    // Handle login logic
     console.log({
       nickname,
       location,

@@ -1,19 +1,24 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import BackIcon from "../../assets/icons/back-icon.svg"; // ← SVG 파일 경로 (assets 폴더 위치에 따라 조정)
+import BackIcon from "../../assets/icons/back-icon.svg"; 
 
 interface BackHeaderProps {
-  title: string;
-  onBack?: () => void;
+  title: React.ReactNode;
+  onBack: () => void;
 }
 
 const BackHeader: React.FC<BackHeaderProps> = ({ title, onBack }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onBack} style={styles.backButton}>
-        <BackIcon width={39} height={39} /> {/* ← SvgXml 대신 이렇게! */}
+        <BackIcon width={39} height={39} />
       </TouchableOpacity>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>
+        {/*
+          조건을 체크해서 문자열일 때만 안전하게 보여주기
+        */}
+        {typeof title === "string" ? title : ""}
+      </Text>
     </View>
   );
 };

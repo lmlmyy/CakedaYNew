@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { SvgXml } from 'react-native-svg';
+import KakaoIcon from '../../assets/icons/kakao-icon.svg'
+
 
 type KakaoButtonProps = {
   onPress: () => void;
@@ -40,7 +42,7 @@ const KakaoButton: React.FC<KakaoButtonProps> = ({ onPress }) => {
   activeOpacity={0.8}
 >
       <View style={styles.buttonContent}>
-        <SvgXml xml={kakaoIconXml} width={iconSize} height={iconSize} />
+        <KakaoIcon width={36} height={36} /> 
         <Text style={styles.buttonText}>카카오 로그인</Text>
       </View>
     </TouchableOpacity>
@@ -49,23 +51,23 @@ const KakaoButton: React.FC<KakaoButtonProps> = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center',
-    width: '100%',
+    alignItems: "center",
+    width: "100%",
     padding: 20,
-    backgroundColor: '#FEE500',
+    backgroundColor: "#FEE500",
     borderRadius: 12,
   },
   buttonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     width: 217,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   buttonText: {
     fontSize: 29,
-    fontWeight: '400',
-    fontFamily: 'Inder',
-    color: '#000',
+    fontWeight: "400",
+    fontFamily: "Inder",
+    color: "#000",
   },
 });
 
