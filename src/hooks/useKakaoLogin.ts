@@ -30,7 +30,7 @@ export const useKakaoLogin = () => {
       if (token && user?.nickname) {
         await AsyncStorage.setItem('accessToken', token);
         Alert.alert('로그인 성공!', `${user.nickname}님 환영합니다 🎉`);
-        navigation.navigate('ProfileSetup');
+        navigation.navigate('ProfileSetup', {});
 
       } else {
         console.warn('토큰 없음:', response);
@@ -40,6 +40,7 @@ export const useKakaoLogin = () => {
     } catch (error) {
       console.error('카카오 로그인 에러', error);
       Alert.alert('로그인 실패', '네트워크나 서버를 확인해주세요.');
+      navigation.navigate('ProfileSetup', {});
     }
   }, [navigation]);
 

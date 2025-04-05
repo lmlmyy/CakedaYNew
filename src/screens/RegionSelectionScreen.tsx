@@ -1,40 +1,50 @@
 import * as React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import BackHeader from "../components/BackHeader";
 import RegionList from "../components/RegionList";
 import ConfirmButton from "../components/ConfirmButton";
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/AppNavigator';
+import { useRoute, RouteProp } from '@react-navigation/native';
 
 const RegionSelectionScreen: React.FC = () => {
-  const [selectedRegions, setSelectedRegions] = React.useState<string[]>([
-    "서울",
-  ]);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  
+  const [selectedRegions, setSelectedRegions] = React.useState<string[]>(["서울"]);
 
   const toggleRegionSelection = (region: string) => {
     setSelectedRegions([region]);
-
-    //클릭 시 취소되게게
-    //setSelectedRegions((prev) => (prev[0] === region ? [] : [region]));
-  
   };
+  const route = useRoute<RouteProp<RootStackParamList, 'RegionSelection'>>();
+  const previousData = route.params?.previousData;
   
-
   const handleConfirm = () => {
-    console.log("Selected regions:", selectedRegions);
+    if (!selectedRegions[0]) {
+      Alert.alert('지역 선택', '관심 지역을 선택해주세요.');
+      return;
+    }
+  
+    
+    navigation.navigate('ProfileSetup', {
+      location: selectedRegions[0],
+      nickname: previousData?.nickname,
+      userType: previousData?.userType,
+      selectedCakes: previousData?.selectedCakes,
+    });
   };
-
-  return (
-    <View style={styles.container}>
-      <BackHeader title="관심 지역 설정" />
-      <View style={styles.content}>
-        <RegionList
-          selectedRegions={selectedRegions}
-          onToggleRegion={toggleRegionSelection}
-        />
-        <ConfirmButton onPress={handleConfirm} />
+    return (
+      <View style={styles.container}>
+        <BackHeader title="관심 지역 설정" onBack={() => navigation.goBack()} />
+        <View style={styles.content}>
+          <RegionList
+            selectedRegions={selectedRegions}
+            onToggleRegion={toggleRegionSelection}
+          />
+          <ConfirmButton onPress={handleConfirm} />
+        </View>
       </View>
-    </View>
-  );
-};
+    );
+  };
 
 const styles = StyleSheet.create({
   container: {
