@@ -11,6 +11,7 @@ import InputField from "../components/InputField";
 import UserTypeSection from "../components/UserTypeSection";
 import CakePreferencesSection from "../components/CakePreferencesSection";
 import PrimaryButton from "../components/PrimaryButton";
+import { submitProfile } from '../api/profileAPI';
 
 type ProfileSetupRouteProp = RouteProp<RootStackParamList, 'ProfileSetup'>;
 
@@ -41,13 +42,28 @@ const ProfileSetupScreen: React.FC = () => {
     }
   };
 
-  const handleLogin = () => {
-    console.log({
-      nickname,
-      location,
-      userType,
-      selectedCakes,
-    });
+  const handleLogin = async () => {
+    if (!nickname || !location || !userType) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+  
+    try {
+      const response = await submitProfile({
+        nickname,
+        location,
+        userType,
+        selectedCakes,
+      });
+  
+      console.log("프로필 저장 성공:", response);
+      // TODO: 저장 후 여기에 navigation 추가
+      // navigation.navigate("Main");
+  
+    } catch (error) {
+      console.error("프로필 저장 실패:", error);
+      alert("저장 중 오류가 발생했습니다.");
+    }
   };
 
   return (
