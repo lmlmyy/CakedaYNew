@@ -65,7 +65,17 @@ const ProfileSetupScreen: React.FC = () => {
           onSelectCake={handleCakeSelection}
         />
 
-        <PrimaryButton title="로그인" onPress={handleLogin} />
+        <PrimaryButton
+          title="로그인"
+          onPress={handleLogin}
+          style={{
+            backgroundColor: "#E78182",
+            height: 44,
+            marginTop: 30,
+            borderRadius: 8,
+          }}
+        />
+
       </View>
     </ScrollView>
   );

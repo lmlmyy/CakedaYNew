@@ -1,40 +1,42 @@
-import * as React from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
-import UploadIcon from '../../assets/icons/upload-icon.svg';
+// TestButton.tsx
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import TestIcon from '../../assets/icons/upload-icon.svg';
 
-interface UploadButtonProps {
+
+interface TestButtonProps {
   onPress: () => void;
 }
 
-const UploadButton: React.FC<UploadButtonProps> = ({ onPress }) => {
+const TestButton: React.FC<TestButtonProps> = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-        <UploadIcon style={{ width: 18, height: 18 }} />
-      <Text style={styles.text}>사진 업로드</Text>
+      <View style={styles.content}>
+        <TestIcon width={18} height={18} color={ "#ffffff" } />
+        <Text style={styles.text}>사진 업로드</Text>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    display: "flex",
-    flexDirection: "row",
-    height: 34,
-    paddingVertical: 17,
+    paddingVertical: 10,
     paddingHorizontal: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-    width: "100%",
-    borderRadius: 10,
     backgroundColor: "#E78182",
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  content:{
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
   text: {
-    color: "#FFF",
-    fontFamily: "Inter",
+    color: "#fff",
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "600",
   },
 });
 
-export default UploadButton;
+export default TestButton;

@@ -38,10 +38,7 @@ const FormFieldWithDropdown: React.FC<FormFieldWithDropdownProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 6,
-    paddingHorizontal: 12,
+    marginBottom: 0, // OrderFormInput과 동일
   },
   label: {
     color: "#000",
@@ -49,12 +46,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     lineHeight: 20,
+    marginBottom: 6, // gap 대신 marginBottom으로 통일
   },
   inputContainer: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 8,
+    padding: 8,
     paddingHorizontal: 12,
     borderRadius: 6,
     borderWidth: 1,
@@ -68,5 +65,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 });
+
 
 export default FormFieldWithDropdown;

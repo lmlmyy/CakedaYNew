@@ -1,194 +1,131 @@
-import * as React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import BackIcon from "../../assets/icons/allowLeft.svg";
-import CalendarIcon from "../../assets/icons/calendar-icon.svg"; 
-import ClockIcon from "../../assets/icons/clock-icon.svg"; 
-import FormFieldWithIcon from "../components/FormFieldWithIcon";
+import React, { useState } from "react";
+import { ScrollView, View, StyleSheet, Text } from "react-native";
+import TopBar from "../components/TopBar";
+import OrderFormInput from "../components/OrderFormInput";
 import FormFieldWithDropdown from "../components/FormFieldWithDropdown";
-import FormTextArea from "../components/FormTextArea";
-import CakeTypeSelector from "../components/CakeTypeSelector";
+import OrderButton from "../components/OrderButton";
+import CalendarIcon from "../../assets/icons/calendar-icon.svg";
+import ClockIcon from "../../assets/icons/clock-icon.svg";
 import UploadButton from "../components/UploadButton";
-import FormField from "../components/FormField";
-import ActionButtons from "../components/ActionButtons";
+import CakeTypeSelection from "../components/CakeTypeSelection";
 
-const CakeOrderForm: React.FC = () => {
-  console.log(CalendarIcon);
-  const [name, setName] = React.useState("");
-  const [pickupDate, setPickupDate] = React.useState("");
-  const [pickupTime, setPickupTime] = React.useState("");
-  const [letteringText, setLetteringText] = React.useState("");
-  const [cakeSize, setCakeSize] = React.useState("");
-  const [cakeShape, setCakeShape] = React.useState("");
-  const [cakeFlavor, setCakeFlavor] = React.useState("");
-  const [additionalNotes, setAdditionalNotes] = React.useState("");
-  const [selectedCakeTypes, setSelectedCakeTypes] = React.useState<string[]>(
-    [],
-  );
+const CakeOrderForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    pickupDate: "",
+    pickupTime: "",
+    letteringText: "",
+    size: "",
+    shape: "",
+    taste: "",
+    notes: "",
+  });
 
-  const handleSelectCakeType = (id: string) => {
-    if (selectedCakeTypes.includes(id)) {
-      setSelectedCakeTypes(selectedCakeTypes.filter((typeId) => typeId !== id));
-    } else {
-      setSelectedCakeTypes([...selectedCakeTypes, id]);
-    }
-  };
+  const [selectedCakeTypes, setSelectedCakeTypes] = useState<string[]>([]);
 
-  const handleCancel = () => {
-    console.log("Order cancelled");
-  };
-
-  const handleOrder = () => {
-    console.log("Order submitted", {
-      name,
-      pickupDate,
-      pickupTime,
-      letteringText,
-      cakeSize,
-      cakeShape,
-      cakeFlavor,
-      additionalNotes,
-      selectedCakeTypes,
-    });
-  };
-
-  const handleUpload = () => {
-    console.log("Upload image");
+  const toggleCakeType = (type: string) => {
+    setSelectedCakeTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    );
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <BackIcon />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>케이크 주문하기</Text>
-      </View>
+    <ScrollView style={styles.container}>
+      <TopBar title="케이크 주문하기" onBackPress={() => {}} />
 
-      <ScrollView style={styles.formContainer}>
-        <FormField
+      <View style={styles.content}>
+        <OrderFormInput
           label="이름"
           placeholder="픽업자 이름 입력"
-          value={name}
-          onChangeText={setName}
         />
-        <FormFieldWithIcon
+        <OrderFormInput
           label="픽업 날짜"
           placeholder="픽업 날짜 선택"
-          value={pickupDate}
-          onChangeText={setPickupDate}
-          icon={<CalendarIcon />}
+          rightIcon={<CalendarIcon />}
         />
-
-        <FormFieldWithIcon
+        <OrderFormInput
           label="픽업 시간"
           placeholder="픽업 시간 선택"
-          value={pickupTime}
-          onChangeText={setPickupTime}
-          icon={<ClockIcon />}
+          rightIcon={<ClockIcon />}
         />
-
-
-        <FormField
+        <OrderFormInput
           label="레터링 문구"
           placeholder="레터링 문구(1 ~ 10글자 입력)"
-          value={letteringText}
-          onChangeText={setLetteringText}
         />
 
-        <FormFieldWithDropdown
-          label="사이즈"
-          placeholder="케이크 사이즈 선택"
-          value={cakeSize}
-          onChangeText={setCakeSize}
-        />
+        <View style={styles.dropdownSpacing}>
+          <FormFieldWithDropdown
+            label="사이즈"
+            placeholder="케이크 사이즈 선택"
+            value={formData.size}
+            onPress={() => {}}
+          />
+        </View>
+        <View style={styles.dropdownSpacing}>
+          <FormFieldWithDropdown
+            label="모양"
+            placeholder="케이크 모양 선택"
+            value={formData.shape}
+            onPress={() => {}}
+          />
+        </View>
+        <View style={styles.dropdownSpacing}>
+          <FormFieldWithDropdown
+            label="시트/맛"
+            placeholder="케이크 시트/맛 선택"
+            value={formData.taste}
+            onPress={() => {}}
+          />
+        </View>
 
-        <FormFieldWithDropdown
-          label="모양"
-          placeholder="케이크 모양 선택"
-          value={cakeShape}
-          onChangeText={setCakeShape}
-        />
-
-        <FormFieldWithDropdown
-          label="시트/맛"
-          placeholder="케이크 시트/맛 선택"
-          value={cakeFlavor}
-          onChangeText={setCakeFlavor}
-        />
-
-        <FormTextArea
+        <OrderFormInput
           label="기타 전달사항"
           placeholder="사장님께 전달할 내용 입력"
-          value={additionalNotes}
-          onChangeText={setAdditionalNotes}
+          multiline
+          height={90}
         />
 
         <View style={styles.uploadSection}>
-          <Text style={styles.sectionLabel}>참고 디자인</Text>
-          <UploadButton onPress={handleUpload} />
+          <Text style={styles.label}>참고 디자인</Text>
+          <UploadButton onPress={() => {}} />
         </View>
 
-        
-      </ScrollView>
-      <CakeTypeSelector
+        <CakeTypeSelection
           selectedTypes={selectedCakeTypes}
-          onSelectType={handleSelectCakeType}
+          onToggleType={toggleCakeType}
         />
-      <ActionButtons onCancel={handleCancel} onOrder={handleOrder} />
-    </View>
+      </View>
+
+      <OrderButton onCancel={() => {}} onOrder={() => {}} />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: 390,
-    width: "100%",
     flex: 1,
+    backgroundColor: "#fff",
+    width: 390,
+    alignSelf: "center",
   },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingTop: 12,
-    paddingRight: 8,
-    paddingBottom: 12,
-    paddingLeft: 8,
-    gap: 8,
-    marginTop: 45,
-    marginRight: 15,
-    marginBottom: 0,
-    marginLeft: 15,
-  },
-  headerTitle: {
-    flex: 1,
-    color: "#000",
-    fontFamily: "Roboto",
-    fontSize: 20,
-    fontWeight: "500",
-    lineHeight: 24,
-  },
-  formContainer: {
-    paddingTop: 25,
-    paddingBottom: 25,
+  content: {
+    paddingHorizontal: 15,
   },
   uploadSection: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 6,
+    marginBottom: 25,
     paddingHorizontal: 12,
   },
-  sectionLabel: {
+  label: {
     color: "#000",
-    fontFamily: "Roboto",
     fontSize: 14,
     fontWeight: "500",
     lineHeight: 20,
+    marginBottom: 6,
+    fontFamily: "Roboto",
+  },
+  dropdownSpacing: {
+    marginBottom: 25,
+    paddingHorizontal: 0,
   },
 });
 
